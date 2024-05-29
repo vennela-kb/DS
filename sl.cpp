@@ -1,0 +1,99 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+struct node
+{
+  int data;
+  struct node *next;
+}*TOP;
+
+void pop()
+{
+ struct node *ptr;
+ ptr=TOP;
+ if(TOP==NULL)
+   cout<<"\nStack is underflow!\n" ;
+ else
+  {
+   TOP=TOP->next; 
+   free(ptr);
+  }
+}
+
+void push(int value)
+{
+ struct node *ptr;
+ ptr=(struct node *)malloc(sizeof(struct node));
+ ptr->data=value;
+ if(TOP==NULL)
+  {
+   TOP=ptr;
+   TOP->next=NULL;
+  }
+ else
+  {
+   ptr->next=TOP;
+   TOP=ptr;
+  }
+}
+
+void display()
+{
+ struct node *ptr;
+ ptr=TOP;
+ if(TOP==NULL)
+   cout<<"\nStack is empty!\n";
+ else
+  {
+   while(ptr!=NULL)
+    {
+     cout<<"\t\t\n"<<ptr->data;
+     ptr=ptr->next;
+    }
+   cout<<endl;
+ }
+}
+
+int main()
+{
+ int i=0;
+ TOP=NULL;
+ cout<<"\n1.Push";
+ cout<<"\n2.Pop";
+ cout<<"\n3.Display";
+ cout<<"\n4.Exit";
+ while(1)
+  {
+   cout<<"\nEnter your choice: ";
+   cin>>i;
+   switch(i)
+   {
+    case 1:
+     {
+      int value;
+      cout<<"\nEnter value: ";
+      cin>>value;
+      push(value);
+      display();
+      break;
+     }
+    case 2:
+     {
+      pop();
+      display();
+      break;
+     }
+    case 3:
+     {
+      display();
+      break;
+     }
+    case 4:
+      exit(0);
+      break;
+    default:
+      cout<<"Invalid Choice\n";
+   }
+  }
+}
+      
