@@ -1,0 +1,177 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+struct node
+{
+struct node *previous;
+int data;
+struct node *next;
+}*start,*last;
+void insert_beg(int value)
+{
+struct node *ptr,*temp;
+ptr=(struct node*)malloc(sizeof(struct node));
+ptr->data=value;
+if(start==NULL)
+{
+start=ptr;
+start->previous=NULL;
+start->next=NULL;
+last=start;
+}
+else
+{
+temp=ptr;
+temp->previous=NULL;
+temp->next=NULL;
+start->previous=temp;
+start=temp;
+}
+}
+void insert_at_end(int value)
+{
+struct node *ptr,*temp;
+ptr=(struct node*)malloc(sizeof(struct node));
+ptr->data=value;
+if(start==NULL)
+{
+start=ptr;
+start->previous=NULL;
+start->next=NULL;
+last=start;
+}
+else
+{
+last=start;
+while(last!=NULL)
+{
+temp=last;
+last=last->next;
+}
+last=ptr;
+temp->next=last;
+last->previous=temp;
+last->next=NULL;
+}
+}
+void insert_after(int value,int loc)
+{
+struct node *temp,*ptr,*temp1;
+ptr=(struct node*)malloc(sizeof(struct node));
+ptr->data=value;
+if(start==NULL)
+{
+start=ptr;
+start->previous=NULL;
+start->next=NULL;
+}
+{
+temp=start;
+while((temp!=NULL)&&(temp->data!=loc))
+{
+temp=temp->next;
+}
+if(temp==NULL)
+{
+cout<<loc<<"not present in the list";
+}
+else
+{
+temp1=temp->next;
+temp->next=ptr;
+ptr->previous=temp1;
+ptr->next=ptr;
+ptr->previous=temp;
+ptr->next=temp1;
+temp1->previous=ptr;
+}
+}
+last=start;
+while(last->next!=NULL)
+{
+last=last->next;
+}
+}
+void remove()
+{
+struct node *temp;
+temp=start;
+start=start->next;
+free(temp);
+cout<<"\n element deleted";
+}
+void display()
+{
+struct node *temp;
+temp=start;
+if(temp==NULL)
+
+cout<<"list is empty"<<endl;
+
+while(temp!=NULL)
+{
+cout<<temp->data;
+temp=temp->next;
+}
+}
+int main()
+{
+int value,i,loc;
+start=NULL;
+cout<<"select your choice"<<endl;
+cout<<"\n 1.insert at beginning";
+cout<<"\n 2.insert at end";
+cout<<"\n 3.inset at any where";
+cout<<"\n 4.delete";
+cout<<"\n 5.display";
+cout<<"\n 6.exit";
+while(1){
+cout<<"\n\n enter your choice";
+cin>>i;
+switch(1){
+case 1: 
+{
+cout<<"\n enter data to insert";
+cin>>value;
+insert_beg(value);
+display();
+break;
+}
+case 2:  
+{int value;
+cout<<"\n enter the value";
+cin>>value;
+insert_at_end(value);
+display();
+break;
+}
+case 3:
+{
+cout<<"\n after which data item you want to insert";
+cin>>loc;
+cout<<"\n enter data to insert";
+cin>>value;
+insert_after(value,loc);
+display();
+break;
+}
+case 4:
+{
+remove();
+display();
+break;
+}
+case 5:
+{
+display();
+break;
+}
+case 6:
+{
+exit(0);
+break;
+}
+}
+}
+}
+

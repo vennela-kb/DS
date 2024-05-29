@@ -1,0 +1,131 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+struct node
+{
+  int data;
+  struct node *next;
+};
+typedef struct node NODE;
+NODE *start;
+void insert_beg()
+{
+  NODE *ptr,*temp;
+  int a;
+  ptr=(NODE*)malloc(sizeof(NODE));
+  cout<<"Enter data";
+  cin>>ptr->data;
+  a=ptr->data;
+  if(start==NULL)
+  {
+    ptr->next=ptr;
+    start=ptr;
+  }
+  else
+  {
+    temp=start;
+    while(temp->next!=start)
+    { temp=temp->next; } 
+    temp->next=ptr;
+    ptr->next=start;
+    start=ptr;
+  }
+  cout<<a<<endl;
+}
+
+void insert_end()
+{
+  NODE *ptr,*last;
+  int b;
+  ptr=(NODE*)malloc(sizeof(NODE));
+  cout<<"Enter data: ";
+  cin>>ptr->data;
+  b=ptr->data;
+  if(start==NULL)
+  {
+    ptr->next=ptr;
+    start=ptr;
+  }
+  else
+  {
+    last=start;
+    while(last->next!=start)
+    { last=last->next; }
+    last->next=ptr;
+    ptr->next=start;
+  }
+  cout<<b<<"  inserted"<<endl;
+}
+
+void deletion()
+{
+  NODE *ptr,*temp,*preptr;
+  int x;
+  if(start==NULL)
+  { cout<<"Empty List!"<<endl; }
+  cout<<"Enter data to be deleted: ";
+  cin>>x;
+  if(x==start->data)
+  {
+    preptr=temp=start;
+    if(start->next==start)
+    {
+      free(preptr);
+      start=NULL;
+      cout<<x<<" Deleted!"<<endl;
+    }
+    while(temp->next!=start)
+    { temp=temp->next; }
+    temp->next=start->next;
+    start=start->next;
+    free(preptr);
+    cout<<x<<" Deleted!:<<endl;
+  }
+  ptr=start;
+  temp=start->next;
+  if(temp->next)
+  { cout<<x<<" does not exist!"<<endl; }
+  else
+  { ptr->next=temp->next; }
+  cout<<x<<" Deleted!"endl;
+  free(temp);
+}
+
+void insert_mid()
+{
+  NODE *nn,*temp,*ptemp;
+  int x,y;
+  nn=(NODE*)malloc(sizeof(NODE));
+  if(start==NULL)
+  { cout<<"List is empty!"<<endl; }
+  cout<<"Enter data before which, number is to be inserted: ";
+  cin>>x;
+  if(x==start->data)
+  { insert_beg(); }
+  ptemp=start;
+  temp=start->next;
+  while(temp!=start && temp->data!=x)
+  {
+    ptemp=temp;
+    temp=temp->next;
+  }
+  if(temp==start)
+  { cout<<x<<" does not exist!"<<endl; }
+  else
+  {
+    cout<<"Enter data";
+    cin>>nn->data;
+    y=nn->data;
+    ptemp->next=nn;
+    nn->next=temp;
+    cout<<y<<" inserted!"<<endl;
+  }
+}
+
+int main()
+{
+  int ch,ch1;
+  start=NULL;
+  do
+
+   

@@ -1,7 +1,7 @@
 #include<iostream>
-#include<stdlib.h>
-using namespace std;
 
+using namespace std;
+#include<stdlib.h>
 struct node
 {
   int data;

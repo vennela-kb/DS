@@ -1,0 +1,72 @@
+#include<iostream>
+using namespace std;
+void sort(int list[],int n);
+void binarysearch(int element,int n,int list[]);
+void output(int list[],int n);
+
+int main()
+{
+int n,i,key,list[100];
+  cout<<"ENTER NUMBER OF ELEMENTS IN THE LIST: ";
+  cin>>n;
+  cout<<"ENTER THE ELEMENTS ONE BY ONE: "<<endl;
+  for(i=0;i<n;i++)
+    {
+      cin>>list[i];
+    }
+  cout<<"ENTER THE KEY TO BE SEARCHED: ";
+  cin>>key;
+  sort(list,n);
+  output(list,n);
+  binarysearch(key,n,list);
+}
+
+void sort(int list[],int n)
+{
+  int t;
+  for(int j=0;j<n;j++)
+  {
+    for(int k=0;k<n-1;k++)
+    {
+      if(list[k]>list[k+1])
+        {
+          t=list[k];
+          list[k]=list[k+1];
+          list[k+1]=t;
+        }
+     }
+   }
+}
+
+void binarysearch(int key,int n,int list[])
+{
+  int flag=1,low,mid,high;
+  low=0;
+  high=n-1;
+  while(low<=high)
+   {
+     mid=(low+high)/2;
+     if(key<list[mid])
+        high=mid-1;
+     else if (key>list[mid])
+        low=mid+1;
+     else if(key==list[mid])
+      {
+        cout<<"Search Successful!!\n";
+        cout<<"Element "<<key<<" is found at location "<<(mid+1)<<endl;
+        flag=0;
+        break;
+      }
+   }
+   if(flag)
+      cout<<"Search  not Successful!!\n";
+}
+
+void output(int list[],int n)
+{
+  cout<<"SORTED LIST IS: ";
+  for(int i=0;i<n;i++)
+     { cout<<list[i]<<"  "; }
+  cout<<endl;
+}
+

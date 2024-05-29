@@ -1,0 +1,72 @@
+#include<iostream>
+using namespace std;
+
+void output(int list[],int num)
+{
+int i;
+cout<<"\nsorted list\n";
+for(i=0;i<num;i++)
+cout<<list[i];
+}
+void binary_search(int element,int n,int l[])
+{
+ int flag=1;
+ int low,mid,high;
+ low=0;
+ high=n-1;
+ while(low<=high)
+ {
+  mid = (low+high)/2;
+  if(element<l[mid])
+   high=mid-1;
+  else
+  if(element>l[mid])
+  low=mid+1;
+  else
+  if(element==mid)
+  {
+   cout<<"\n search successful\n";
+   cout<<"\nelement is location="<<mid<<endl;
+   flag=1;
+   break;
+  }}
+  if(flag)
+  cout<<"\nsearch completed"<<endl;
+  else
+  cout<<"search is not completed"<<endl;
+}
+
+
+void sort(int list[],int n)
+{
+ int t;
+ for(int j=0;j<n;j++)
+ for(int k=0;k<n-1;k++)
+ {
+   if(list[k]>list[k+1])
+   {
+    t=list[k];
+    list[k]=list[k+1];
+    list[k+1]=t;
+   }
+ }
+}
+int main()
+{
+int num,key,list[100],i;
+cout<<"enter no of elements\n";
+cin>>num;
+cout<<"eneter elements\n";
+for(i=0;i<num;i++)
+   { 
+    cin>>list[i];
+   }
+cout<<"\nentered list follows\n";
+for(i=0;i<num;i++)
+cout<<list[i];
+cout<<"\nelement to be searched\n";
+cin>>key;
+sort(list,num);
+output(list,num);
+binary_search(key,num,list);
+ }  
