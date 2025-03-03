@@ -1,25 +1,32 @@
 from pybloom_live import BloomFilter
 
-def load_names(filename):
-    with open(filename, 'r') as file:
-        names = file.read().splitlines()
-    return names
+# Here we load names into Bloom Filter
+def load_bloom_filter(filename):
+    bloom = BloomFilter(capacity=1000, error_rate=0.01)  # Adjusting here the parameters if needed
+    with open(filename, "r") as file:
+        for line in file:
+            bloom.add(line.strip().lower())  # Storing names in lowercase for consistency
+    return bloom
 
-def main():
-    
-    bloom_filter = BloomFilter(capacity=100, error_rate=0.1)
-    names = load_names('list.txt')
-    for name in names:
-        bloom_filter.add(name)
+# Applying now a "Query function"
+def query_name(bloom):
     while True:
-    
-        name = input("Enter the First and Last name (or END END to quit): ")
-        if name == "END END":
+        name = input("Enter First and Last Name (or type 'END END' to exit): ").strip().lower()
+        if name == "end end":
+            print("Exiting program...")
             break
-        if name in bloom_filter:
-            print(f"{name} is PROBABLY a Customer (with a probability of {1 - bloom_filter.error_rate})")
+        if name in bloom:
+            print(f"\n=================================")
+            print(f"Name: {name.title()}")
+            print(f"{name.title()} is PROBABLY a Customer (99% Prob.)")
+            print("=================================\n")
         else:
-            print(f"{name} is NOT a Customer")
+            print(f"\n=================================")
+            print(f"Name: {name.title()}")
+            print(f"{name.title()} is NOT a Customer")
+            print("=================================\n")
 
+# Main function
 if __name__ == "__main__":
-    main()
+    bloom_filter = load_bloom_filter("list.txt")
+    query_name(bloom_filter)
